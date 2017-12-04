@@ -1,0 +1,48 @@
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+	<display-name>WebProject</display-name>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+	</welcome-file-list>
+
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<servlet>
+		<servlet-name>spring-ws-servlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextClass</param-name>
+			<param-value>org.springframework.web.context.support.AnnotationConfigWebApplicationContext</param-value>
+		</init-param>
+
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+
+	<filter>
+		<filter-name>CORS</filter-name>
+		<filter-class>com.saran.filters.CORSFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>CORS</filter-name>
+		<url-pattern>/v1/*</url-pattern>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>Encryption</filter-name>
+		<filter-class>com.saran.filters.EncryptionFilter</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>Encryption</filter-name>
+		<url-pattern>/v1/*</url-pattern>
+	</filter-mapping>
+
+	<servlet-mapping>
+		<servlet-name>spring-ws-servlet</servlet-name>
+		<url-pattern>/v1/*</url-pattern>
+	</servlet-mapping>
+</web-app>
